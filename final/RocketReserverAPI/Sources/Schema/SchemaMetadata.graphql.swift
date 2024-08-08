@@ -3,8 +3,6 @@
 
 import ApolloAPI
 
-public typealias ID = String
-
 public protocol SelectionSet: ApolloAPI.SelectionSet & ApolloAPI.RootSelectionSet
 where Schema == RocketReserverAPI.SchemaMetadata {}
 
@@ -18,13 +16,16 @@ public protocol MutableInlineFragment: ApolloAPI.MutableSelectionSet & ApolloAPI
 where Schema == RocketReserverAPI.SchemaMetadata {}
 
 public enum SchemaMetadata: ApolloAPI.SchemaMetadata {
-  public static let configuration: ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
+  public static let configuration: any ApolloAPI.SchemaConfiguration.Type = SchemaConfiguration.self
 
   public static func objectType(forTypename typename: String) -> ApolloAPI.Object? {
     switch typename {
+    case "Query": return RocketReserverAPI.Objects.Query
+    case "Post": return RocketReserverAPI.Objects.Post
+    case "AwardingTotal": return RocketReserverAPI.Objects.AwardingTotal
+    case "Awarding": return RocketReserverAPI.Objects.Awarding
     case "Mutation": return RocketReserverAPI.Objects.Mutation
     case "User": return RocketReserverAPI.Objects.User
-    case "Query": return RocketReserverAPI.Objects.Query
     case "Launch": return RocketReserverAPI.Objects.Launch
     case "Mission": return RocketReserverAPI.Objects.Mission
     case "Rocket": return RocketReserverAPI.Objects.Rocket

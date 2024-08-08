@@ -16,6 +16,26 @@ type Query {
   launch(id: ID!): Launch
   me: User
   totalTripsBooked: Int
+  
+  postsInfoByIds: [PostInfo!]
+}
+
+interface PostInfo {
+  awardings: [AwardingTotal!]
+}
+
+type Awarding {
+  id: String!
+}
+
+type AwardingTotal {
+  id: String!
+  awardingByCurrentUser: [Awarding!]
+  total: Int!
+}
+
+type Post implements PostInfo {
+  awardings: [AwardingTotal!]
 }
 
 """

@@ -1,0 +1,14 @@
+query Foo($includeCurrentUserAwards: Boolean = false) {
+    postsInfoByIds {
+        ... on Post {
+            awardings {
+                total
+            }
+        }
+        awardings @include(if: $includeCurrentUserAwards) {
+            awardingByCurrentUser {
+                id
+            }
+        }
+    }
+}
